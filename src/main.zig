@@ -95,7 +95,7 @@ pub fn main() !void {
     const row_pointers = png.png_get_rows(png_data, png_info);
     for (0.., row_pointers[0..height]) |y, row| {
         const dest = @as([*]u8, @ptrCast(sfc.*.pixels)) + y * @as(usize, @intCast(sfc.*.pitch));
-        @memcpy(dest[0 .. 4 * width], row);
+        @memcpy(dest[0 .. 3 * width], row);
     }
 
     const winsfc = sdl.SDL_GetWindowSurface(win.?);
