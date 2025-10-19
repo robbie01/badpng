@@ -592,6 +592,7 @@ typedef png_unknown_chunk FAR * FAR * png_unknown_chunkpp;
  * functions do not make their own copies.
  */
 typedef struct png_info_struct
+#ifdef PNG_IMPLEMENTATION
 {
    /* the following are necessary for every PNG file */
    png_uint_32 width;       /* width of image in pixels (from IHDR) */
@@ -827,7 +828,9 @@ defined(PNG_READ_BACKGROUND_SUPPORTED)
    png_fixed_point int_y_blue;
 #endif
 
-} png_info;
+}
+#endif /* PNG_IMPLEMENTATION */
+png_info;
 
 typedef png_info FAR * png_infop;
 typedef png_info FAR * FAR * png_infopp;
@@ -949,7 +952,7 @@ typedef png_row_info FAR * FAR * png_row_infopp;
 typedef struct png_struct_def png_struct;
 typedef png_struct FAR * png_structp;
 
-typedef void (PNGAPI *png_error_ptr) PNGARG((void*, png_const_charp));
+typedef void (PNGAPI *png_error_ptr) PNGARG((png_structp, png_const_charp));
 typedef void (PNGAPI *png_rw_ptr) PNGARG((png_structp, png_bytep, png_size_t));
 typedef void (PNGAPI *png_flush_ptr) PNGARG((png_structp));
 typedef void (PNGAPI *png_read_status_ptr) PNGARG((png_structp, png_uint_32,
@@ -1009,6 +1012,7 @@ typedef void (*png_free_ptr) PNGARG((png_structp, png_voidp));
  */
 
 struct png_struct_def
+#ifdef PNG_IMPLEMENTATION
 {
 #ifdef PNG_SETJMP_SUPPORTED
    jmp_buf jmpbuf;            /* used in png_error */
@@ -1280,7 +1284,9 @@ struct png_struct_def
                                      /* palette color */
 #endif
 
-};
+}
+#endif /* PNG_IMPLEMENTATION */
+;
 
 
 /* This prevents a compiler error in png.c if png.c and png.h are both at

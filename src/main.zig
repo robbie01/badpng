@@ -33,7 +33,7 @@ pub fn main() !void {
     };
     defer _ = std.c.fclose(png_file);
 
-    var png_data = png.png_create_read_struct(
+    var png_data: ?*png.png_struct = png.png_create_read_struct(
         png.PNG_LIBPNG_VER_STRING,
         null,
         null,
@@ -43,13 +43,13 @@ pub fn main() !void {
         return error.Png;
     };
 
-    var png_info = png.png_create_info_struct(png_data) orelse {
+    var png_info: ?*png.png_info = png.png_create_info_struct(png_data) orelse {
         std.debug.print("failed to create png info struct\n", .{});
         png.png_destroy_read_struct(&png_data, null, null);
         return error.Png;
     };
 
-    var png_end_info = png.png_create_info_struct(png_data) orelse {
+    var png_end_info: ?*png.png_info = png.png_create_info_struct(png_data) orelse {
         std.debug.print("failed to create png end info struct\n", .{});
         png.png_destroy_read_struct(&png_data, &png_info, null);
         return error.Png;
