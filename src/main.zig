@@ -96,10 +96,10 @@ pub fn main() !void {
     const destlen = height * pitch * 3;
     const dest = @as([*]u8, @ptrCast(sfc.*.pixels))[0..destlen];
 
-    const row_pointers: [*][*c]u8 = png.png_get_rows(png_data, png_info);
+    const row_pointers: [*]?[*]u8 = png.png_get_rows(png_data, png_info);
     for (0..height, row_pointers) |y, row| {
         const idx = y * pitch;
-        @memcpy(dest[idx .. idx + 3 * width], row);
+        @memcpy(dest[idx .. idx + 3 * width], row.?);
     }
 
     const winsfc: *sdl.SDL_Surface = sdl.SDL_GetWindowSurface(win) orelse {

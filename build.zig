@@ -79,7 +79,7 @@ pub fn build(b: *std.Build) void {
             "libpng-1.2.5/pngerror.c",
             "libpng-1.2.5/pngpread.c",
         },
-        .flags = &[_][]const u8{"-DPNG_SETJMP_NOT_SUPPORTED"},
+        .flags = &[_][]const u8{ "-DPNG_SETJMP_NOT_SUPPORTED", "-DPNG_IMPLEMENTATION" },
     });
     mod.addIncludePath(.{ .src_path = .{
         .owner = b,
