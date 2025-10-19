@@ -1,7 +1,6 @@
 const std = @import("std");
 const builtin = @import("builtin");
-const badpng = @import("badpng");
-const png = badpng.png;
+const png = @import("badpng").png;
 const sdl = @cImport({
     @cDefine("SDL_DISABLE_OLD_NAMES", {});
     @cInclude("SDL3/SDL.h");
